@@ -266,7 +266,6 @@ section {
 }
 
 .title-name {
-    font-size: 40px !important;
     font-weight: bold;
     font-family: "Qahiri", sans-serif;
     margin-top: 2rem;
@@ -747,7 +746,7 @@ section {
     font-family: 'Tangerine', serif;
     text-align: center;
     margin-bottom: 1.5rem;
-    font-size: 4rem;
+    font-size: 42px;
     color: var(--main-color);
 }
 
@@ -905,10 +904,6 @@ section {
         font-size: 2rem;
     }
 
-    .section-title {
-        font-size: 3rem;
-    }
-
     .date-box h2 {
         font-size: 1.5rem;
     }
@@ -936,10 +931,6 @@ section {
 
     .gallery {
         column-count: 2;
-    }
-
-    .title-name {
-        font-size: 2rem !important;
     }
 
     .gift-info {
