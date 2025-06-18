@@ -410,7 +410,6 @@ section {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
     background-color: var(--opacity-50);
     color: var(--main-color);
-    border: 1px solid var(--accent-color);
 }
 
 .card-content h2 {
@@ -854,7 +853,7 @@ section {
     }
 
     .title-name {
-        font-size: 2rem;
+        font-size: 2rem !important;
     }
 
     .gift-info {
@@ -872,6 +871,12 @@ section {
     .gift-chip,
     .gift-detail {
         left: 15%
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .title-name {
+        /* font-size: 1rem ; */
     }
 }
 
