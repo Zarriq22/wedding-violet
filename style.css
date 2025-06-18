@@ -874,12 +874,6 @@ section {
     }
 }
 
-@media screen and (max-width: 420px) {
-    .title-name {
-        /* font-size: 1rem ; */
-    }
-}
-
 .scroll-animate {
     opacity: 0;
     transform: translateY(40px);
