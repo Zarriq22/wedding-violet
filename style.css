@@ -810,6 +810,12 @@ section {
 
 /* Responsive */
 @media screen and (max-width: 600px) {
+    .sec-introduce,
+    .section-mempelai,
+    .wedding-gift {
+        width: 80%;
+    }
+
     #home h1 {
         font-size: 2rem;
     }
@@ -844,7 +850,28 @@ section {
     }
 
     .gallery {
-        column-count: 1;
+        column-count: 2;
+    }
+
+    .title-name {
+        font-size: 2rem;
+    }
+
+    .gift-info {
+        padding: 0px 3.7rem;
+    }
+
+    .gift-detail > div h2 {
+        font-size: 1rem;
+    }
+
+    .gift-detail > div span {
+        font-size: 0.8rem;
+    }
+
+    .gift-chip,
+    .gift-detail {
+        left: 15%
     }
 }
 

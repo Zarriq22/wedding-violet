@@ -115,7 +115,7 @@ dataGift.forEach((gift, index) => {
         <div class="gift-card scroll-animate">
             <div class="gift-content">
                 <img src="https://raw.githubusercontent.com/Zarriq22/assset-azra-wedding/refs/heads/main/images/card-atm.webp" alt="Gift" class="gift-image" />
-                <img src="./images/gift/chip-atm1.webp" alt="Chip" class="gift-chip" />
+                <img src="https://raw.githubusercontent.com/Zarriq22/assset-azra-wedding/refs/heads/main/images/chip-atm.webp" alt="Chip" class="gift-chip" />
                 <div class="gift-info">
                     <h4>Bank ${gift.namaBank}</h4>
                     <img src="${gift.img}" alt="${gift.namaBank}" class="gift-atm">
