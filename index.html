@@ -18,6 +18,8 @@
         <meta property="og:image" content="https://github.com/Zarriq22/assset-azra-wedding/blob/main/images/prewedding.png?raw=true" />
         <meta property="og:url" content="https://zarriq22.github.io/wedding-violet/" />
         <meta property="og:type" content="website" />
+
+        <script src="index.js" type="text/javascript" defer></script>
     </head>
     <body>
         <!-- COVER -->
@@ -195,7 +197,7 @@
                         <div class="gift-card" id="giftContainer"></div>
                     </section>
 
-                    <section id="galeri" class="card-gallery scroll-animate">
+                    <section id="galeri" class="card-gallery scroll-animate" style="margin-bottom: 0%;">
                         <h2 class="section-title">Galeri Kami</h2>
                         <div class="gallery">
                             <img class="animate-scale" src="https://github.com/Zarriq22/assset-azra-wedding/blob/main/images/preweding-1.png?raw=true" alt="Pasangan 1" />
@@ -215,24 +217,39 @@
                         </div>
                     </section> -->
         
-                    <section id="rsvp" class="rsvp scroll-animate">
-                        <h2 class="section-title">Konfirmasi Kehadiran</h2>
-                        <form id="rsvpForm" class="rsvp-form">
-                            <input type="text" id="name" name="name" placeholder="Nama lengkap" required>
-                            <input type="number" id="jumlah" name="jumlah" placeholder="Contoh: 2" min="1" required>
-                            <select id="kehadiran" name="kehadiran" required>
-                                <option value="">Konfirmasi Kehadiran</option>
-                                <option value="Hadir">Hadir</option>
-                                <option value="Tidak Hadir">Tidak Hadir</option>
-                            </select>
-                            <textarea id="pesan" name="pesan" placeholder="Ucapan atau pesan..."></textarea>
-
-                            <button type="submit">Kirim</button>
-                        </form>
-                        <p id="rsvpMessage" style="margin-top: 10px;"></p>
+                    <section id="rsvp" class="rsvp" style="margin-bottom: 0%">
+                        <h2 class="section-title scroll-animate" style="margin-bottom: 0%;">Wishes</h2>
+                        <div class="quote-text text-center scroll-animate">
+                            Ucapan Selamat, Doa & Konfirmasi Kehadiran
+                        </div>
+                        <div class="jumlahUcapan scroll-animate">
+                            <i class="fa fa-comment"></i>
+                            <div>
+                                <span id="jumlahUcapan"></span>
+                                <span>Ucapan</span>
+                            </div>
+                        </div>
+                        <div style="position: relative;" class="scroll-animate">
+                            <div id="loadingScreen" style="display: none;"><span></span></div>
+                            <form id="rsvpForm" class="rsvp-form">
+                                <input type="text" id="name" name="name" placeholder="Nama lengkap" required>
+                                <input type="number" id="jumlah" name="jumlah" placeholder="Contoh: 2">
+                                <select id="kehadiran" name="kehadiran" required>
+                                    <option value="">Konfirmasi Kehadiran</option>
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                </select>
+                                <textarea id="pesan" name="pesan" placeholder="Ucapan atau pesan..."></textarea>
+    
+                                <button type="submit" style="width: 100px;">Kirim</button>
+                            </form>
+                        </div>
+                        <p id="rsvpMessage" class="animate-scale" style="margin-top: 10px;"></p>
+                        <div id="hasil" class="scroll-animate"></div>
+                        <div id="pagination" class="pagination-controls"></div>
                     </section>
         
-                    <footer class="footer-wedding scroll-animate">
+                    <footer class="footer-wedding">
                         <div class="scroll-animate">
                             <h2 class="section-title" style="color: #fff;">Girl & Man Wedding</h2>
                         </div>

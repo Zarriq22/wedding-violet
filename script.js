@@ -140,19 +140,129 @@ function copyToClipboard(text) {
 }
 
 document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.style.display = 'flex';
+
+    const rsvpForm = document.getElementById('hasil');
+
     e.preventDefault();
 
     const name = document.getElementById('name').value;
-    const jumlah = document.getElementById('jumlah').value;
-    const kehadiran = document.getElementById('kehadiran').value;
-    const pesan = document.getElementById('pesan').value;
+    const jumlahOrang = document.getElementById('jumlah').value;
+    const status = document.getElementById('kehadiran').value;
+    const message = document.getElementById('pesan').value;
 
-    // Simulasi kirim
-    document.getElementById('rsvpMessage').innerText = `Terima kasih, ${name}! Data RSVP kamu telah dikirim. 🙏`;
+    const url = `https://script.google.com/macros/s/AKfycbwfGnXzkMj9US_JmuRRXDkYXXNUDOYdLMlDAo4uMVVfKLGbbiKgJVHjGN351LtFdRlv0Q/exec?name=${encodeURIComponent(name)}&jumlah=${encodeURIComponent(jumlahOrang)}&status=${encodeURIComponent(status)}&message=${encodeURIComponent(message)}`;
+    
 
-    // Reset form
-    e.target.reset();
+    fetch(url, {
+        method: "GET",
+        mode: "no-cors"
+    })
+    .then(() => {
+        // Tampilkan pesan sukses di elemen #rsvpMessage
+        const msgEl = document.getElementById('rsvpMessage');
+        msgEl.textContent = "✅ Ucapan berhasil dikirim. Terima kasih!";
+        msgEl.style.color = "green";
+
+        setTimeout(() => {
+            msgEl.textContent = "";
+        }, 3000);
+
+        loadingScreen.style.display = 'none';
+        e.target.reset();
+        loadRSVPData();
+    })
+    .catch(err => {
+        alert("Gagal kirim: " + err.message);
+    });
 });
+
+// RSVP
+let allRsvpData = [];
+let currentPage = 1;
+const pageSize = 10;
+
+function getInitials(nama) {
+    if (!nama) return "";
+    return nama
+        .trim()
+        .split(/\s+/)
+        .map(k => k[0].toUpperCase())
+        .join("");
+}
+
+function renderRSVPPage(data, page) {
+    const rsvpForm = document.getElementById('hasil');
+    rsvpForm.innerHTML = "";
+
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    const pageData = data.slice(start, end);
+
+    pageData.forEach((rsvp, index) => {
+        const initials = getInitials(rsvp.Nama);
+        const html = `
+            <div class="rsvp-item">
+                <div class="badge-name" style="background-color: #${Math.floor(Math.random() * 16777215).toString(16)}; color: #${Math.floor(Math.random() * 16777215).toString(16)}">
+                    <span>${initials}</span>
+                </div>
+                <div class="rsvp-content">
+                    <span id="rsvp-${start + index}" class="namaPengirim">${rsvp.Nama} <i class="${rsvp.Status === "Hadir" ? "fas fa-check" : "fas fa-times"}"></i></span>
+                    <span id="rsvp-${start + index}" class="pesanPengirim">${rsvp.Ucapan}</span>
+                </div>
+            </div>
+        `;
+        rsvpForm.innerHTML += html;
+    });
+
+    renderPaginationControls(data.length, page);
+}
+
+function renderPaginationControls(totalItems, currentPage) {
+    const pagination = document.getElementById('pagination');
+    if (!pagination) return;
+
+    const totalPages = Math.ceil(totalItems / pageSize);
+    pagination.innerHTML = '';
+
+    // if (totalPages <= 0) return;
+
+    if (currentPage > 1) {
+        pagination.innerHTML += `<button onclick="goToPage(${currentPage - 1})"><i class="fa fa-arrow-left"></i></button>`;
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+        pagination.innerHTML += `<button onclick="goToPage(${i})" ${i === currentPage ? 'style="font-weight:bold;"' : ''}>${i}</button>`;
+    }
+
+    if (currentPage < totalPages) {
+        pagination.innerHTML += `<button onclick="goToPage(${currentPage + 1})"><i class="fa fa-arrow-right"></i></button>`;
+    }
+}
+
+function goToPage(page) {
+    currentPage = page;
+    renderRSVPPage(allRsvpData, currentPage);
+}
+
+function loadRSVPData() {
+    const jumlahUcapan = document.getElementById('jumlahUcapan');
+    jumlahUcapan.innerHTML = 0;
+
+    const sheetDataHandler = (sheetData) => {
+        allRsvpData = sheetData;
+        jumlahUcapan.innerHTML = sheetData.length;
+        renderRSVPPage(allRsvpData, currentPage);
+    };
+
+    getSheetData({
+        sheetID: "1SBY8gyLY4bW09OEW-idpEprVD2yTK7MnkeHgbq-mjjU",
+        sheetName: "Daftar Hadir",
+        query: "SELECT *",
+        callback: sheetDataHandler,
+    });
+}
 
 // Countdown
 const countdown = document.getElementById("countdown");
@@ -193,3 +303,7 @@ function updateCountdown() {
 
 setInterval(updateCountdown, 1000);
 updateCountdown();
+
+window.onload = function () {
+    loadRSVPData();
+};
